@@ -4,7 +4,7 @@ def describe_features(features):
     texts = []
     max_title = 0
     max_text = 0
-    text_width = 75
+    text_width = 150
 
     for f in features:
         titles += [f.title]

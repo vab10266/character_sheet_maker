@@ -15,8 +15,12 @@ class Decision:
     def choose(self):
         print()
         print(self.text)
-        print(describe_choices(self.choices), end="")
-        x = input()
-        self.chosen = self.choices[x].val
+        while self.chosen is None:
+            print(describe_choices(self.choices), end="")
+            x = input()
+            try:
+                self.chosen = self.choices[x].val
+            except KeyError as e:
+                print("invalid")
         return self.chosen
     

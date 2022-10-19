@@ -40,8 +40,11 @@ class CharacterCreator:
                 print("invalid")
             """
             char_race = Decision("Choose race:", races).choose()
+        first_class = None
         for l in range(level):
             char_class = None
+            if self.custom is False:
+                char_class = first_class
             while char_class is None:
                 """
                 print("Level: " + str(l+1) + "\n  Choose class:\n\t1: Barbarian\n\t\t11: BearTotem\n\t\t12: EagleTotem\n\t2: Bard\n\t\t21: Swords\n\t\t22: Valor\n: ", end="")
@@ -54,7 +57,8 @@ class CharacterCreator:
                 char_class = Decision("Choose class for level " + str(l+1) + ":", classes).choose()
             
             if l == 0:           
-                player_char = Character(char_class(), char_race())
+                first_class = char_class
+                player_char = Character(first_class(), char_race())
             else:
                 player_char.add_level(char_class(stats_set=True))
         player_char.process()        
@@ -63,7 +67,7 @@ class CharacterCreator:
 
     
 if __name__ == "__main__":
-    c = CharacterCreator(True)
+    c = CharacterCreator(False)
     p = c.create()
     print(
         p.first_class,

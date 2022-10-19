@@ -196,8 +196,8 @@ class Totem(Barbarian):
                 "Aspect of the Beast",
                 "At 6th level, you gain a magical benefit based on the totem animal of your choice. You can choose the same animal you selected at 3rd level or a different one.",
                 level=6,
-                gcode="""
-                totem6 = Decision("Choose your totem spirit:", {
+                gcode=
+                """totem6 = Decision("Choose your totem spirit:", {
                     "Bear": Choice("You gain the might of a bear. Your carrying capacity (including maximum load and maximum lift) is doubled, and you have advantage on Strength checks made to push, pull, lift, or break objects.", ClassFeature("Bear Totem 6", "", level=6)),
 
                     "Eagle": Choice("You gain the eyesight of an eagle. You can see up to 1 mile away with no difficulty, able to discern even fine details as though looking at something no more than 100 feet away from you. Additionally, dim light doesn't impose disadvantage on your Wisdom (Perception) checks.", ClassFeature("Eagle Totem 6", "", level=6)),
@@ -219,8 +219,8 @@ class Totem(Barbarian):
                 "Totemic Attunement",
                 "At 14th level, you gain a magical benefit based on a totem animal of your choice. You can choose the same animal you selected previously or a different one.",
                 level=14,
-                gcode="""
-                totem14 = Decision("Choose your totem spirit:", {
+                gcode=
+                """totem14 = Decision("Choose your totem spirit:", {
                     "Bear": Choice("While you're raging, any creature within 5 feet of you that's hostile to you has disadvantage on attack rolls against targets other than you or another character with this feature. An enemy is immune to this effect if it can't see or hear you or if it can't be frightened.", ClassFeature("Bear Totem 14", "While you're raging, any creature within 5 feet of you that's hostile to you has disadvantage on attack rolls against targets other than you or another character with this feature. An enemy is immune to this effect if it can't see or hear you or if it can't be frightened.", level=14)),
 
                     "Eagle": Choice("While raging, you have a flying speed equal to your current walking speed. This benefit works only in short bursts; you fall if you end your turn in the air and nothing else is holding you aloft.", ClassFeature("Eagle Totem 14", "While raging, you have a flying speed equal to your current walking speed. This benefit works only in short bursts; you fall if you end your turn in the air and nothing else is holding you aloft.", level=14)),

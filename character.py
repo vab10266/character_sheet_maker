@@ -109,7 +109,7 @@ class Character:
         for c in self.classes:
             # print('a', self.classes, self.subclasses)
             for r in c.resources.keys():
-                self.resources[r] = c.resources[r][self.level]
+                self.resources[r] = c.resources[r][self.level - 1]
             for f in c.features:
                 if f.level <= self.levels[c.c_name]:
                     self.features += [f]
