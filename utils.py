@@ -59,11 +59,14 @@ def describe_choices(choices):
         ti = titles[i]
         te = texts[i]
         # print(te)
-        out_str += '| ' + ti + ' '*(max_title - len(ti)) + '  |  '
+        out_str += '| ' + ti + ' '*(max_title - len(ti)) + '  |'
         for j in range(len(te) // text_width +1):
             # print(te[j * 50:(j+1) * 50])
-            out_str += te[j * text_width:(j+1) * text_width] + ' '*min((max_text - len(te[j * text_width:(j+1) * text_width]) + 1), (text_width - len(te[j * text_width:(j+1) * text_width]) + 1))
-            out_str += '|\n|' + '_' * (max_title + 3) + '|'
+            out_str += '  ' + te[j * text_width:(j+1) * text_width] + ' '*min((max_text - len(te[j * text_width:(j+1) * text_width]) + 1), (text_width - len(te[j * text_width:(j+1) * text_width]) + 1))
+            # out_str += '|\n|' + '_' * (max_title + 3) + '|'
+            if j < len(te) // text_width:
+                out_str += '|\n|' + ' ' * (max_title + 3) + '|'
+        out_str += '|\n|' + '_' * (max_title + 3) + '|'
         out_str += '_'*(2+min(max_text, text_width)) + '_|\n'
     
     # out_str += '_'*(max_title + 7 + min(max_text, text_width)) + '\n'

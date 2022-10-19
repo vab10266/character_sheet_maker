@@ -5,7 +5,6 @@ from race import *
 from choice import *
 from utils import describe_features, show_stats
 from equipment import armor_choices, weapon_choices
-from feature import asi
 
 
 # class_list = {"1": Barbarian, "2": Bard, "3": Fighter}
@@ -30,6 +29,17 @@ class CharacterCreator:
         # player_char = Character()
         print("Select Character Level: ", end="")
         level = int(input())
+        char_race = None
+        while char_race is None:
+            """
+            print("Level: " + str(l+1) + "\nChoose race:\n\t1: Human\n\tDwarf\n\t\t21: Hill Dwarf\n\t\t22: Mountain Dwarf\n: ", end="")
+            c = input()
+            try:
+                char_race = race_list[c]
+            except KeyError as e:
+                print("invalid")
+            """
+            char_race = Decision("Choose race:", races).choose()
         for l in range(level):
             char_class = None
             while char_class is None:
@@ -43,21 +53,11 @@ class CharacterCreator:
                 """
                 char_class = Decision("Choose class for level " + str(l+1) + ":", classes).choose()
             
-            if l == 0:
-                char_race = None
-                while char_race is None:
-                    """
-                    print("Level: " + str(l+1) + "\nChoose race:\n\t1: Human\n\tDwarf\n\t\t21: Hill Dwarf\n\t\t22: Mountain Dwarf\n: ", end="")
-                    c = input()
-                    try:
-                        char_race = race_list[c]
-                    except KeyError as e:
-                        print("invalid")
-                    """
-                    char_race = Decision("Choose race:", races).choose()
+            if l == 0:           
                 player_char = Character(char_class(), char_race())
             else:
                 player_char.add_level(char_class(stats_set=True))
+        player_char.process()        
         return player_char
         
 
@@ -86,4 +86,5 @@ if __name__ == "__main__":
     # temp = Decision("Choose your weapon:", weapon_choices).choose()
 
     print(show_stats(p.stats))
-    asi(p)
+    print(p.resources)
+    # p.asi()

@@ -1,4 +1,5 @@
 from typing import Dict
+from char_class import Totem, Zealot
 from stat_roller import StatRoller
 from choice import *
 from utils import *
@@ -20,9 +21,11 @@ class Character:
         self.proficiencies = race.proficiencies
         self.languages = race.languages
         self.features = race.features
+        self.subclasses = []
+        self.resources = {}
         
-        for f in self.features:
-            f.gain(self)
+        # for f in self.features:
+        #     f.gain(self)
 
 
         self.add_level(first_class)
@@ -86,16 +89,58 @@ class Character:
         else:
             self.levels[c.c_name] = 1
 
-        for f in c.features:
-            if f.level == self.levels[c.c_name]:
-                self.features += [f]
-                f.gain(self)
-        print(self.hp)
+        if c.sc_lvl == self.levels[c.c_name]:
+            self.add_subclass(c.c_name)
+
+        
+        # print(self.hp)
         self.hp += c.start_hp // 2 + 1 + (self.stats["Con"] - 10) // 2
-        print(self.hp)
+        # print(self.hp)
         for f in self.features:
             f.lvl_up(self)
+    def process(self):
+        for i in range(len(self.classes)):
+            c = self.classes[i]
+            if self.levels[c.c_name] >= c.sc_lvl:
+                for sub in self.subclasses:
+                    if sub.c_name == c.c_name:
+                        self.classes[i] = sub
+                
+        for c in self.classes:
+            # print('a', self.classes, self.subclasses)
+            for r in c.resources.keys():
+                self.resources[r] = c.resources[r][self.level]
+            for f in c.features:
+                if f.level <= self.levels[c.c_name]:
+                    self.features += [f]
+        for f in self.features:
+            # print(f.title)
+            f.gain(self)
 
-    def change_stat(self, stat, x):
-        self.stats[stat] += x
-    
+    def asi(self):
+        stat_choices = {
+            "1": Choice('Str', 'Str'),
+            "2": Choice('Dex', 'Dex'),
+            "3": Choice('Con', 'Con'),
+            "4": Choice('Int', 'Int'),
+            "5": Choice('Wis', 'Wis'),
+            "6": Choice('Cha', 'Cha')    
+        }
+        print(show_stats(self.stats))
+        fasi = Decision("Choose your first ASI:", stat_choices).choose()
+        self.stats[fasi] += 1
+        print(show_stats(self.stats))
+        sasi = Decision("Choose your second ASI:", stat_choices).choose()
+        self.stats[sasi] += 1
+        print(show_stats(self.stats))
+
+    def add_subclass(self, c):
+        if c == 'Barbarian':
+            sc_choices = {
+                '1': Choice("Totem", Totem),
+                '2': Choice("Zealot", Zealot)
+            }
+            sc = Decision("Choose your Primal Path:", sc_choices).choose()(stats_set=True)
+            # print(type(sc))
+            self.subclasses += [sc]
+

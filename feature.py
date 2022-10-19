@@ -7,8 +7,9 @@ class Feature:
         self.text = text
         self.gcode = gcode
         self.lcode = lcode
+        self.level = 0
 
-    def gain(self, c):
+    def gain(self, p):
         exec(self.gcode)
 
     def lvl_up(self, p):
@@ -19,19 +20,4 @@ class ClassFeature(Feature):
         super().__init__(title, text, gcode=gcode, lcode=lcode)
         self.level = level
 
-def asi(char):
-    stat_choices = {
-        "1": Choice('Str', 'Str'),
-        "2": Choice('Dex', 'Dex'),
-        "3": Choice('Con', 'Con'),
-        "4": Choice('Int', 'Int'),
-        "5": Choice('Wis', 'Wis'),
-        "6": Choice('Cha', 'Cha')    
-    }
-    print(show_stats(char.stats))
-    fasi = Decision("Choose your first ASI:", stat_choices).choose()
-    char.change_stat(fasi, 1)
-    print(show_stats(char.stats))
-    sasi = Decision("Choose your second ASI:", stat_choices).choose()
-    char.change_stat(sasi, 1)
-    print(show_stats(char.stats))
+
