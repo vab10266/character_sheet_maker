@@ -20,6 +20,8 @@ races = {
     "1": Choice("Human", Human),
     "2": Choice("Dwarf", Dwarf),
     "3": Choice("Elf", Elf),
+    "4": Choice("Half-Orc", HalfOrc),
+
 }
 
 
@@ -69,10 +71,10 @@ class CharacterCreator:
 
     
 if __name__ == "__main__":
-    c = CharacterCreator(False)
+    c = CharacterCreator(True)
     p = c.create()
     print(
-        p.first_class,
+        p.classes,
         p.race,
         p.levels,
         p.stats,

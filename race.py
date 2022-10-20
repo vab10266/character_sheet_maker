@@ -159,3 +159,28 @@ class Elf(Race):
                     "You know the Dancing Lights cantrip. When you reach 3rd level, you can cast the Faerie Fire spell once with this trait and regain the ability to do so when you finish a long rest. When you reach 5th level, you can cast the Darkness spell onceand regain the ability to do so when you finish a long rest. Charisma is your spellcasting ability for these spells."
                 ),
             ]
+
+class HalfOrc(Race):
+    def __init__(self):
+        super().__init__()
+        self.languages += ['Orc']
+        self.proficiencies += ['Intimidation']
+        self.features += [
+            Feature(
+                "Ability Score Increase.",
+                "Your Strength score increases by 2, and your Constitution score increases by 1.",
+                gcode="""p.stats['Str'] += 2\np.stats['Con'] += 1"""
+            ),
+            Feature(
+                "Darkvision",
+                "Thanks to your orc blood, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray."
+            ),
+            Feature(
+                "Relentless Endurance",
+                "When you are reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. You can't use this feature again until you finish a long rest."
+            ),
+            Feature(
+                "Savage Attacks",
+                "When you score a critical hit with a melee weapon attack, you can roll one of the weapon's damage dice one additional time and add it to the extra damage of the critical hit."
+            ),
+        ]

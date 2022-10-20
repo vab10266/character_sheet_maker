@@ -89,6 +89,8 @@ class Character:
             self.levels[c.c_name] += 1
         else:
             self.levels[c.c_name] = 1
+            if self.level != 1:
+                self.classes += [c]
 
         if c.sc_lvl == self.levels[c.c_name]:
             self.add_subclass(c.c_name)
@@ -100,7 +102,7 @@ class Character:
         # print("lvl_num_features: ", len(self.features))
         for f in self.features:
             f.update(self)
-            
+
         if self.armor=="Unarmored" and self.ac < (10 + (self.stats["Dex"] - 10) // 2):
             self.ac = (10 + (self.stats["Dex"] - 10) // 2)
         
@@ -118,7 +120,7 @@ class Character:
         for c in self.classes:
             # print('a', self.classes, self.subclasses)
             for r in c.resources.keys():
-                self.resources[r] = c.resources[r][self.level - 1]
+                self.resources[r] = c.resources[r][self.levels[c.c_name] - 1]
             for f in c.features:
                 if f.level <= self.levels[c.c_name]:
                     self.features += [f]
