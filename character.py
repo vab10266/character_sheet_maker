@@ -1,5 +1,6 @@
 from typing import Dict
-from char_class import Totem, Zealot
+from classes.barbarian import *
+from classes.fighter import *
 from stat_roller import StatRoller
 from choice import *
 from utils import *
@@ -99,9 +100,13 @@ class Character:
         # print("lvl_num_features: ", len(self.features))
         for f in self.features:
             f.update(self)
+            
+        if self.armor=="Unarmored" and self.ac < (10 + (self.stats["Dex"] - 10) // 2):
+            self.ac = (10 + (self.stats["Dex"] - 10) // 2)
+        
 
     def process(self):
-        print("num_features: ", len(self.features))
+        # print("num_features: ", len(self.features))
         for i in range(len(self.classes)):
             c = self.classes[i]
             if self.levels[c.c_name] >= c.sc_lvl:
@@ -151,5 +156,17 @@ class Character:
             }
             sc = Decision("Choose your Primal Path:", sc_choices).choose()(stats_set=True)
             # print(type(sc))
-            self.subclasses += [sc]
+        if c == 'Fighter':
+            sc_choices = {
+                '1': Choice("Champion", Champion),
+                '2': Choice("Battle Master", BattleMaster)
+            }
+            sc = Decision("Choose your Primal Path:", sc_choices).choose()(stats_set=True)
+            # print(type(sc))
+            # self.subclasses += [sc]
+        self.subclasses += [sc]
+        for i in range(len(self.classes)):
+            c = self.classes[i]
+            if sc.c_name == c.c_name:
+                self.classes[i] = sc
 

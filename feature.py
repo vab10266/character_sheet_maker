@@ -13,7 +13,7 @@ class Feature:
         exec(self.gcode)
 
     def update(self, p):
-        # print(self.lcode)
+        print(self.lcode)
         exec(self.lcode)
 
 class ClassFeature(Feature):
