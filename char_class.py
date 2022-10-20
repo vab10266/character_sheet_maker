@@ -39,7 +39,7 @@ class Barbarian(Class):
             ClassFeature(
                 "Unarmored Defense.",
                 "While you are not wearing any armor, your armor class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit.",
-                gcode="""if p.armor=="" and p.ac < (10 + (p.stats["Dex"] - 10) // 2 + (p.stats["Con"] - 10) // 2):\n\tp.ac = (10 + (p.stats["Dex"] - 10) // 2 + (p.stats["Con"] - 10) // 2)""",
+                lcode="""if p.armor=="Unarmored" and p.ac < (10 + (p.stats["Dex"] - 10) // 2 + (p.stats["Con"] - 10) // 2):\n\tp.ac = (10 + (p.stats["Dex"] - 10) // 2 + (p.stats["Con"] - 10) // 2)\nelse:\n\tprint('oof')""",
                 level=1
             ),
             ClassFeature(

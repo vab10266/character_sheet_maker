@@ -12,7 +12,8 @@ class Feature:
     def gain(self, p):
         exec(self.gcode)
 
-    def lvl_up(self, p):
+    def update(self, p):
+        # print(self.lcode)
         exec(self.lcode)
 
 class ClassFeature(Feature):

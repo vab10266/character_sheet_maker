@@ -13,7 +13,7 @@ class Character:
         self.level = 0
         self.levels = {}
         self.generate_stats()
-        self.armor=""
+        self.armor="Unarmored"
         self.ac = 10 + (self.stats["Dex"] - 10) // 2
         self.hp = first_class.start_hp // 2 - 1
         self.speed = race.speed
@@ -48,13 +48,13 @@ class Character:
             }).choose()
             sr = StatRoller(mode)
             stats = sr.roll_stats()
-            stats.sort(reverse=True)
-            stats[0] += 2
-            stats[1] += 1
+            # stats.sort(reverse=True)
+            # stats[0] += 2
+            # stats[1] += 1
             self.stats = dict(zip(self.first_class.stat_preference, stats))
 
         elif sm == 1:
-            stats = [16, 16, 13, 12, 10, 8]
+            stats = [15, 14, 13, 12, 10, 8]
             self.stats = dict(zip(self.first_class.stat_preference, stats))
 
         else:
@@ -96,15 +96,19 @@ class Character:
         # print(self.hp)
         self.hp += c.start_hp // 2 + 1 + (self.stats["Con"] - 10) // 2
         # print(self.hp)
+        # print("lvl_num_features: ", len(self.features))
         for f in self.features:
-            f.lvl_up(self)
+            f.update(self)
+
     def process(self):
+        print("num_features: ", len(self.features))
         for i in range(len(self.classes)):
             c = self.classes[i]
             if self.levels[c.c_name] >= c.sc_lvl:
                 for sub in self.subclasses:
                     if sub.c_name == c.c_name:
                         self.classes[i] = sub
+        # print("num_features: ", len(self.features))
                 
         for c in self.classes:
             # print('a', self.classes, self.subclasses)
@@ -113,9 +117,14 @@ class Character:
             for f in c.features:
                 if f.level <= self.levels[c.c_name]:
                     self.features += [f]
+        # print("num_features: ", len(self.features))
+
         for f in self.features:
             # print(f.title)
             f.gain(self)
+        for f in self.features:
+            f.update(self)
+        # print("num_features: ", len(self.features))
 
     def asi(self):
         stat_choices = {

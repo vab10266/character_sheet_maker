@@ -16,8 +16,8 @@ classes = {
 # race_list = {"1": Human, "21": HillDwarf, "22": MountainDwarf}
 races = {
     "1": Choice("Human", Human),
-    "21": Choice("Dwarf, Hill", HillDwarf),
-    "22": Choice("Dwarf, Mountian", MountainDwarf),
+    "2": Choice("Dwarf", Dwarf),
+    "3": Choice("Elf", Elf),
 }
 
 
@@ -91,4 +91,5 @@ if __name__ == "__main__":
 
     print(show_stats(p.stats))
     print(p.resources)
+    print(p.proficiencies)
     # p.asi()
