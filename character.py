@@ -6,14 +6,17 @@ from choice import *
 from utils import *
 
 class Character:
-    def __init__(self, first_class, race):
+    def __init__(self, first_class, race, stats=None):
         # Class_name: level
         self.first_class = first_class
         self.classes = [first_class]
         self.race = race
         self.level = 0
         self.levels = {}
-        self.generate_stats()
+        if stats is None:
+            self.generate_stats()
+        else:
+            self.stats = stats
         self.armor="Unarmored"
         self.ac = 10 + (self.stats["Dex"] - 10) // 2
         self.hp = first_class.start_hp // 2 - 1

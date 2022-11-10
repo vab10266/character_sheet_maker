@@ -97,3 +97,28 @@ def _beautify(x):
         out_str += '+'
     out_str += str(mod)
     return out_str
+
+def describe_char(p):
+    print(
+        p.classes,
+        p.race,
+        p.levels,
+        p.stats,
+        p.ac,
+        p.speed,
+        p.languages
+    )
+    # for f in p.features:
+    #     print(f.title, "\t\t\t|", f.text)
+    print(describe_features(p.features))
+    exec("""print("hello world")""")
+    
+    print('ac: ', p.ac, '\nhp: ', p.hp)
+    exec("")
+    # temp = Decision("Choose your armor:", armor_choices).choose()
+
+    # temp = Decision("Choose your weapon:", weapon_choices).choose()
+
+    print(show_stats(p.stats))
+    print(p.resources)
+    print(p.proficiencies)
